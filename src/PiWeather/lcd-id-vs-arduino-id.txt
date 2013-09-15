@@ -1,0 +1,58 @@
+
+I have been wondering about the "Random" ID the TX29 selects and writes in the display when powering up.
+
+It writes 305 (on all of them) prob the "sensortype" , but the ID has puzzled me a bit.
+
+LCD ID     Arduino ID
+6C         1B          0110-1100
+58         16          0101-1000
+B4         2D          1011-0100
+B8         2E          1011-1000
+4C         13          0100-1100
+
+GotIT+
+96 E6 29 6A 44
+Id: 1B R Temp: 22.9
+
+GotIT+
+9B 66 35 6A C2
+Id: 2D R Temp: 23.5
+
+GotIT+
+94 E6 47 6A 7B
+Id: 13 R Temp: 24.7
+
+95 A6 30 6A 87
+Id: 16 R Temp: 23.0
+GotIT+
+
+
+
+GotIT+
+95 A6 30 6A 87
+Id: 16 R Temp: 23.0
+GotIT+
+96 E6 29 6A 44
+Id: 1B R Temp: 22.9
+GotIT+
+95 A6 28 6A DE
+Id: 16 R Temp: 22.8
+GotIT+
+96 E6 29 6A 44
+Id: 1B R Temp: 22.9
+GotIT+
+96 E6 29 6A 44
+Id: 1B R Temp: 22.9
+GotIT+
+96 E6 29 6A 44
+Id: 1B R Temp: 22.9
+GotIT+
+96 E6 29 6A 44
+Id: 1B R Temp: 22.9
+
+
+    SensorId = ((rf12_buf[0] & 0x0f) << 4) + ((rf12_buf[1] & 0xf0) >> 4) >> 2;
+    lcSensorId = (((rf12_buf[0] & 0x0f) << 4) + ((rf12_buf[1] & 0xf0) >> 4)) & 0xfc;
+
+The "La Crosse ID , shown in lcd" is "nibble 2 + 3" & 0xfc
+
