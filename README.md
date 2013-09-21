@@ -1,7 +1,5 @@
 # PiWeather #
 
-## Raspberry Pi Weather Base Station ##
-
 PiWeather is a [Raspberry Pi](http://www.raspberrypi.org) based weather base station.   The basic goal is to provide a graphing, reporting and alerting 
 solution for wireless weather sensors (temperature, humidity, rain, wind)
 sold by companies like [La Cross Technology](http://www.lacrossetechnology.com/).
