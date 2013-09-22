@@ -1,7 +1,6 @@
 // RFM12B driver implementation
 // 2009-02-09 <jc@wippler.nl> http://opensource.org/licenses/mit-license.php
 
-#include "RF12.h"
 #include <avr/io.h>
 #include <util/crc16.h>
 #include <avr/eeprom.h>
@@ -11,6 +10,7 @@
 #else
 #include <WProgram.h> // Arduino 0022
 #endif
+#include "RF12_IT.h"
 
 //Bingo
 //

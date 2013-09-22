@@ -1,7 +1,7 @@
 #ifndef PiWeather_H
 #define PiWeather_H 
 
-#include "RF12.h"
+#include "RF12_IT_ext.h"
 #include <Arduino.h>
 
 /* Only define 915 or 868 below depending on 
@@ -15,12 +15,15 @@
 #define RF12_FRAME_DEBUG // Debug RF12 frames 
 #define DEBUG_CRC
 
+#define ITPLUS_DEBUG 
+#define ITPLUS_DEBUG_FRAME
 #define ITPLUS_MAX_SENSORS 15 
 #define ITPLUS_MAX_DISCOVER  ITPLUS_MAX_SENSORS
 #define ITPLUS_DISCOVERY_PERIOD 255
 #define ITPLUS_ID_MASK	0b00111111
 
 #define SENSORS_RX_TIMEOUT 5
+
 
 
 // Radio Sensor structure (both RF12 & IT+)
