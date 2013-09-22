@@ -26,7 +26,7 @@ PiWeather will be a combination software & hardware project.
  1. Web based software which can run on any Linux computer for all the reporting & alerting.
  1. And a RaspberryPi daughter board[*] providing the wireless RF connectivity to the sensors 
  
-RaspberryPi is a low cost and low power (1A) Linux computer which will make running PiWeather 24/7 inexpensive (prices start at $25) to get started with and cost-effective to run due to it's low power requirements.  
+RaspberryPi is a low cost and low power Linux computer which will make running PiWeather 24/7 inexpensive (prices start at $25) to get started with and cost-effective to run due to it's low power requirements.  
 
 [\*] Of course, if you already have a Linux computer with a free USB port at home running 24/7 you will be able to use that instead of the RaspberryPi via a [JeeLink](http://jeelabs.net/projects/hardware/wiki/JeeLink) which will provide the necessary wireless interface to talk to the weather sensors.
 
