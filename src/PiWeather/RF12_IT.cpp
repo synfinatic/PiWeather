@@ -12,13 +12,6 @@
 #endif
 #include "RF12_IT.h"
 
-//Bingo
-//
-//Set TX29_IT_PLUS to 1 compile La Crosse extensions in , else set TX29_IT_PLUS to 0
-//
-#define TX29_IT_PLUS 	1
-
-
 // #define OPTIMIZE_SPI 1  // uncomment this to write to the RFM12B @ 8 Mhz
 
 // pin change interrupts are currently only supported on ATmega328's
@@ -151,7 +144,8 @@ void (*crypter)(uint8_t);           // does en-/decryption (null if disabled)
 
 boolean ITPlusFrame;
 
-void rf12_spiInit () {
+void 
+rf12_spiInit() {
     bitSet(SS_PORT, SS_BIT);
     bitSet(SS_DDR, SS_BIT);
     digitalWrite(SPI_SS, 1);
@@ -173,7 +167,8 @@ void rf12_spiInit () {
     digitalWrite(RFM_IRQ, 1); // pull-up
 }
 
-static uint8_t rf12_byte (uint8_t out) {
+static uint8_t 
+rf12_byte(uint8_t out) {
 #ifdef SPDR
     SPDR = out;
     // this loop spins 4 usec with a 2 MHz SPI clock
@@ -205,7 +200,8 @@ static uint8_t rf12_byte (uint8_t out) {
 #endif
 }
 
-static uint16_t rf12_xferSlow (uint16_t cmd) {
+static uint16_t 
+rf12_xferSlow(uint16_t cmd) {
     // slow down to under 2.5 MHz
 #if F_CPU > 10000000
     bitSet(SPCR, SPR0);
@@ -221,7 +217,8 @@ static uint16_t rf12_xferSlow (uint16_t cmd) {
 }
 
 #if OPTIMIZE_SPI
-static void rf12_xfer (uint16_t cmd) {
+static void 
+rf12_xfer(uint16_t cmd) {
     // writing can take place at full speed, even 8 MHz works
     bitClear(SS_PORT, SS_BIT);
     rf12_byte(cmd >> 8) << 8;
@@ -233,7 +230,8 @@ static void rf12_xfer (uint16_t cmd) {
 #endif
 
 // access to the RFM12B internal registers with interrupts disabled
-uint16_t rf12_control(uint16_t cmd) {
+uint16_t 
+rf12_control(uint16_t cmd) {
 #ifdef EIMSK
     bitClear(EIMSK, INT0);
     uint16_t r = rf12_xferSlow(cmd);
@@ -247,59 +245,44 @@ uint16_t rf12_control(uint16_t cmd) {
     return r;
 }
 
-static void rf12_interrupt() {
+static void 
+rf12_interrupt() {
     // a transfer of 2x 16 bits @ 2 MHz over SPI takes 2x 8 us inside this ISR
     // correction: now takes 2 + 8 µs, since sending can be done at 8 MHz
     rf12_xfer(0x0000);
-    
+
     if (rxstate == TXRECV) {
         uint8_t in = rf12_xferSlow(RF_RX_FIFO_READ);
 
-//Bingo
-#if TX29_IT_PLUS == 1
-/* GCR */
         // See http://forum.jeelabs.net/comment/4434#comment-4434 
         // For an explanation , and limitation of this modification , to read the La Crosse TX29+ 868Mhz Sensors
 
         // Check what type of frame it looks like with the first received byte
         // Is it a TX29+ Frame ? (Always starts with 0x9? , on group 0xD4)
         if (rxfill == 0 && group == 0xd4) {
-        	if ((in & 0xf0) == 0x90)
-        		ITPlusFrame = true;
-        	else
-        		ITPlusFrame = false;
+            if ((in & 0xf0) == 0x90)
+                ITPlusFrame = true;
+            else
+                ITPlusFrame = false;
         }
-/* GCR */
-#endif
 
-//Bingo
-#if TX29_IT_PLUS == 1
-	if (rxfill == 0 && group != 0 && !ITPlusFrame) /* GCR : added  && !ITPlusFrame */
-#else
-        if (rxfill == 0 && group != 0)
-#endif
+        if (rxfill == 0 && group != 0 && !ITPlusFrame) /* GCR : added  && !ITPlusFrame */
             rf12_buf[rxfill++] = group;
-            
+
         rf12_buf[rxfill++] = in;
 
-//Bingo
-#if TX29_IT_PLUS == 1        
-/* GCR */
         if (ITPlusFrame) {
-        	if (rxfill == 5)	// IT+ Frames always has 5 bytes
-        		rf12_xfer(RF_IDLE_MODE);
-        		// CRC will be computed later
-/* GCR */
+            if (rxfill == 5) {	// IT+ Frames always has 5 bytes
+                rf12_xfer(RF_IDLE_MODE);
+            }
+            // CRC will be computed later
         } else {
-#endif
-        rf12_crc = _crc16_update(rf12_crc, in);
+            rf12_crc = _crc16_update(rf12_crc, in);
 
-        if (rxfill >= rf12_len + 5 || rxfill >= RF_MAX)
-            rf12_xfer(RF_IDLE_MODE);
-//Bingo
-#if TX29_IT_PLUS == 1    
-    } 
-#endif
+            if (rxfill >= rf12_len + 5 || rxfill >= RF_MAX) {
+                rf12_xfer(RF_IDLE_MODE);
+            }
+        } 
     } else {
         uint8_t out;
 
@@ -316,31 +299,32 @@ static void rf12_interrupt() {
                 case TXDONE: rf12_xfer(RF_IDLE_MODE); // fall through
                 default:     out = 0xAA;
             }
-            
+
         rf12_xfer(RF_TXREG_WRITE + out);
     }
 }
 
 #if PINCHG_IRQ
-    #if RFM_IRQ < 8
-        ISR(PCINT2_vect) {
-            while (!bitRead(PIND, RFM_IRQ))
-                rf12_interrupt();
-        }
-    #elif RFM_IRQ < 14
-        ISR(PCINT0_vect) { 
-            while (!bitRead(PINB, RFM_IRQ - 8))
-                rf12_interrupt();
-        }
-    #else
-        ISR(PCINT1_vect) {
-            while (!bitRead(PINC, RFM_IRQ - 14))
-                rf12_interrupt();
-        }
-    #endif
+#if RFM_IRQ < 8
+ISR(PCINT2_vect) {
+    while (!bitRead(PIND, RFM_IRQ))
+        rf12_interrupt();
+}
+#elif RFM_IRQ < 14
+ISR(PCINT0_vect) { 
+    while (!bitRead(PINB, RFM_IRQ - 8))
+        rf12_interrupt();
+}
+#else
+ISR(PCINT1_vect) {
+    while (!bitRead(PINC, RFM_IRQ - 14))
+        rf12_interrupt();
+}
+#endif
 #endif
 
-static void rf12_recvStart () {
+static void 
+rf12_recvStart() {
     rxfill = rf12_len = 0;
     rf12_crc = ~0;
 #if RF12_VERSION >= 2
@@ -351,42 +335,41 @@ static void rf12_recvStart () {
     rf12_xfer(RF_RECEIVER_ON);
 }
 
-uint8_t rf12_recvDone () {
-//Bingo
-#if TX29_IT_PLUS == 1
-/* GCR */
-	// Two different receive conditions depending on frame type RFM12/Jeenode or RFM01/IT+
+uint8_t 
+rf12_recvDone() {
+    // Two different receive conditions depending on frame type RFM12/Jeenode or RFM01/IT+
     if (ITPlusFrame) {
-    	if (rxstate == TXRECV && rxfill == 5) {	// IT+ Frames always has 5 bytes
+        if (rxstate == TXRECV && rxfill == 5) {	// IT+ Frames always has 5 bytes
             rxstate = TXIDLE;
             return 1;	// Got full IT+ frame
         }
-/* GCR */
     } else {	// RFM12/Jeenode normal processing
-#endif
-    if (rxstate == TXRECV && (rxfill >= rf12_len + 5 || rxfill >= RF_MAX)) {
-        rxstate = TXIDLE;
-        if (rf12_len > RF12_MAXDATA)
-            rf12_crc = 1; // force bad crc if packet length is invalid
-        if (!(rf12_hdr & RF12_HDR_DST) || (nodeid & NODE_ID) == 31 ||
-                (rf12_hdr & RF12_HDR_MASK) == (nodeid & NODE_ID)) {
-            if (rf12_crc == 0 && crypter != 0)
-                crypter(0);
-            else
-                rf12_seq = -1;
-            return 1; // it's a broadcast packet or it's addressed to this node
+        if (rxstate == TXRECV && (rxfill >= rf12_len + 5 || rxfill >= RF_MAX)) {
+            rxstate = TXIDLE;
+            if (rf12_len > RF12_MAXDATA) {
+                rf12_crc = 1; // force bad crc if packet length is invalid
+            }
+
+            if (!(rf12_hdr & RF12_HDR_DST) || (nodeid & NODE_ID) == 31 ||
+                    (rf12_hdr & RF12_HDR_MASK) == (nodeid & NODE_ID)) {
+                if (rf12_crc == 0 && crypter != 0) {
+                    crypter(0);
+                } else {
+                    rf12_seq = -1;
+                }
+                return 1; // it's a broadcast packet or it's addressed to this node
+            }
         }
     }
-//Bingo
-#if TX29_IT_PLUS == 1
-    }
-#endif
-    if (rxstate == TXIDLE)
+
+    if (rxstate == TXIDLE) {
         rf12_recvStart();
+    }
     return 0;
 }
 
-uint8_t rf12_canSend () {
+uint8_t 
+rf12_canSend() {
     // no need to test with interrupts disabled: state TXRECV is only reached
     // outside of ISR and we don't care if rxfill jumps from 0 to 1 here
     if (rxstate == TXRECV && rxfill == 0 &&
@@ -401,12 +384,14 @@ uint8_t rf12_canSend () {
     return 0;
 }
 
-void rf12_sendStart (uint8_t hdr) {
-    rf12_hdr = hdr & RF12_HDR_DST ? hdr :
-                (hdr & ~RF12_HDR_MASK) + (nodeid & NODE_ID);
-    if (crypter != 0)
+void 
+rf12_sendStart(uint8_t hdr) {
+    rf12_hdr = hdr & RF12_HDR_DST ? hdr : ((hdr & ~RF12_HDR_MASK) + (nodeid & NODE_ID));
+   
+    if (crypter != 0) {
         crypter(1);
-    
+    }
+
     rf12_crc = ~0;
 #if RF12_VERSION >= 2
     rf12_crc = _crc16_update(rf12_crc, group);
@@ -415,54 +400,60 @@ void rf12_sendStart (uint8_t hdr) {
     rf12_xfer(RF_XMITTER_ON); // bytes will be fed via interrupts
 }
 
-void rf12_sendStart (uint8_t hdr, const void* ptr, uint8_t len) {
+void 
+rf12_sendStart(uint8_t hdr, const void* ptr, uint8_t len) {
     rf12_len = len;
     memcpy((void*) rf12_data, ptr, len);
     rf12_sendStart(hdr);
 }
 
 // deprecated
-void rf12_sendStart (uint8_t hdr, const void* ptr, uint8_t len, uint8_t sync) {
+void 
+rf12_sendStart(uint8_t hdr, const void* ptr, uint8_t len, uint8_t sync) {
     rf12_sendStart(hdr, ptr, len);
     rf12_sendWait(sync);
 }
 
-void rf12_sendWait (uint8_t mode) {
+void 
+rf12_sendWait(uint8_t mode) {
     // wait for packet to actually finish sending
     // go into low power mode, as interrupts are going to come in very soon
-    while (rxstate != TXIDLE)
+    while (rxstate != TXIDLE) {
         if (mode) {
             // power down mode is only possible if the fuses are set to start
             // up in 258 clock cycles, i.e. approx 4 us - else must use standby!
             // modes 2 and higher may lose a few clock timer ticks
             set_sleep_mode(mode == 3 ? SLEEP_MODE_PWR_DOWN :
 #ifdef SLEEP_MODE_STANDBY
-                           mode == 2 ? SLEEP_MODE_STANDBY :
+                    mode == 2 ? SLEEP_MODE_STANDBY :
 #endif
-                                       SLEEP_MODE_IDLE);
+                    SLEEP_MODE_IDLE);
             sleep_mode();
         }
+    }
 }
 
 /*!
   Call this once with the node ID (0-31), frequency band (0-3), and
   optional group (0-255 for RF12B, only 212 allowed for RF12).
-*/
-uint8_t rf12_initialize (uint8_t id, uint8_t band, uint8_t g) {
+  */
+uint8_t 
+rf12_initialize(uint8_t id, uint8_t band, uint8_t g) {
     nodeid = id;
     group = g;
-    
+
     rf12_spiInit();
 
     rf12_xfer(0x0000); // intitial SPI transfer added to avoid power-up problem
 
     rf12_xfer(RF_SLEEP_MODE); // DC (disable clk pin), enable lbd
-    
+
     // wait until RFM12B is out of power-up reset, this takes several *seconds*
     rf12_xfer(RF_TXREG_WRITE); // in case we're still in OOK mode
-    while (digitalRead(RFM_IRQ) == 0)
+    while (digitalRead(RFM_IRQ) == 0) {
         rf12_xfer(0x0000);
-        
+    }
+
     rf12_xfer(0x80C7 | (band << 4)); // EL (ena TX), EF (ena RX FIFO), 12.0pF 
     rf12_xfer(0xA640); // 868MHz 
     rf12_xfer(0xC606); // approx 49.2 Kbps, i.e. 10000/29/(1+6) Kbps
@@ -484,45 +475,48 @@ uint8_t rf12_initialize (uint8_t id, uint8_t band, uint8_t g) {
 
     rxstate = TXIDLE;
 #if PINCHG_IRQ
-    #if RFM_IRQ < 8
-        if ((nodeid & NODE_ID) != 0) {
-            bitClear(DDRD, RFM_IRQ);      // input
-            bitSet(PORTD, RFM_IRQ);       // pull-up
-            bitSet(PCMSK2, RFM_IRQ);      // pin-change
-            bitSet(PCICR, PCIE2);         // enable
-        } else
-            bitClear(PCMSK2, RFM_IRQ);
-    #elif RFM_IRQ < 14
-        if ((nodeid & NODE_ID) != 0) {
-            bitClear(DDRB, RFM_IRQ - 8);  // input
-            bitSet(PORTB, RFM_IRQ - 8);   // pull-up
-            bitSet(PCMSK0, RFM_IRQ - 8);  // pin-change
-            bitSet(PCICR, PCIE0);         // enable
-        } else
-            bitClear(PCMSK0, RFM_IRQ - 8);
-    #else
-        if ((nodeid & NODE_ID) != 0) {
-            bitClear(DDRC, RFM_IRQ - 14); // input
-            bitSet(PORTC, RFM_IRQ - 14);  // pull-up
-            bitSet(PCMSK1, RFM_IRQ - 14); // pin-change
-            bitSet(PCICR, PCIE1);         // enable
-        } else
-            bitClear(PCMSK1, RFM_IRQ - 14);
-    #endif
+#if RFM_IRQ < 8
+    if ((nodeid & NODE_ID) != 0) {
+        bitClear(DDRD, RFM_IRQ);      // input
+        bitSet(PORTD, RFM_IRQ);       // pull-up
+        bitSet(PCMSK2, RFM_IRQ);      // pin-change
+        bitSet(PCICR, PCIE2);         // enable
+    } else {
+        bitClear(PCMSK2, RFM_IRQ);
+    }
+
+#elif RFM_IRQ < 14
+    if ((nodeid & NODE_ID) != 0) {
+        bitClear(DDRB, RFM_IRQ - 8);  // input
+        bitSet(PORTB, RFM_IRQ - 8);   // pull-up
+        bitSet(PCMSK0, RFM_IRQ - 8);  // pin-change
+        bitSet(PCICR, PCIE0);         // enable
+    } else {
+        bitClear(PCMSK0, RFM_IRQ - 8);
+    }
 #else
-    if ((nodeid & NODE_ID) != 0)
+    if ((nodeid & NODE_ID) != 0) {
+        bitClear(DDRC, RFM_IRQ - 14); // input
+        bitSet(PORTC, RFM_IRQ - 14);  // pull-up
+        bitSet(PCMSK1, RFM_IRQ - 14); // pin-change
+        bitSet(PCICR, PCIE1);         // enable
+    } else {
+        bitClear(PCMSK1, RFM_IRQ - 14);
+    }
+#endif // RFM_IRQ
+#else // PINCHG_IRQ
+    if ((nodeid & NODE_ID) != 0) {
         attachInterrupt(0, rf12_interrupt, LOW);
-    else
+    } else {
         detachInterrupt(0);
-#endif
-    
+    }
+#endif // PINCHG_IRQ
+
     return nodeid;
 }
 
-//Bingo
-#if TX29_IT_PLUS == 1
-/* GCR : RF12 overide settings for IT+ */
-void rf12_initialize_overide_ITP (uint16_t speed) {
+void 
+rf12_initialize_overide_ITP(uint16_t speed) {
     if (speed == 868) {
         rf12_xfer(0xA67c); // FREQUENCY 868.300MHz
     } else if (speed == 915) {
@@ -531,85 +525,103 @@ void rf12_initialize_overide_ITP (uint16_t speed) {
     rf12_xfer(0xC613); // DATA RATE 17.241 kbps
     rf12_xfer(0x94a0); // RECEIVER CONTROL VDI Medium 134khz LNA max DRRSI 103 dbm
 }
-/* GCR */
-#endif
 
-void rf12_onOff (uint8_t value) {
+void 
+rf12_onOff(uint8_t value) {
     rf12_xfer(value ? RF_XMITTER_ON : RF_IDLE_MODE);
 }
 
-uint8_t rf12_config (uint8_t show) {
+uint8_t 
+rf12_config(uint8_t show) {
     uint16_t crc = ~0;
-    for (uint8_t i = 0; i < RF12_EEPROM_SIZE; ++i)
+
+    for (uint8_t i = 0; i < RF12_EEPROM_SIZE; ++i) {
         crc = _crc16_update(crc, eeprom_read_byte(RF12_EEPROM_ADDR + i));
-    if (crc != 0)
+    }
+
+    if (crc != 0) {
         return 0;
-        
+    }
+
     uint8_t nodeId = 0, group = 0;
+
     for (uint8_t i = 0; i < RF12_EEPROM_SIZE - 2; ++i) {
         uint8_t b = eeprom_read_byte(RF12_EEPROM_ADDR + i);
-        if (i == 0)
+
+        if (i == 0) {
             nodeId = b;
-        else if (i == 1)
+        } else if (i == 1) {
             group = b;
-        else if (b == 0)
+        } else if (b == 0) {
             break;
-        else if (show)
+        } else if (show) {
             Serial.print((char) b);
+        }
     }
-    if (show)
+
+    if (show) {
         Serial.println();
-    
+    }
+
     rf12_initialize(nodeId, nodeId >> 6, group);
     return nodeId & RF12_HDR_MASK;
 }
 
-void rf12_sleep (char n) {
-    if (n < 0)
+void 
+rf12_sleep(char n) {
+    if (n < 0) {
         rf12_control(RF_IDLE_MODE);
-    else {
+    } else {
         rf12_control(RF_WAKEUP_TIMER | 0x0500 | n);
         rf12_control(RF_SLEEP_MODE);
-        if (n > 0)
+        if (n > 0) {
             rf12_control(RF_WAKEUP_MODE);
+        }
     }
     rxstate = TXIDLE;
 }
 
-char rf12_lowbat () {
+char 
+rf12_lowbat() {
     return (rf12_control(0x0000) & RF_LBD_BIT) != 0;
 }
 
-void rf12_easyInit (uint8_t secs) {
+void 
+rf12_easyInit(uint8_t secs) {
     ezInterval = secs;
 }
 
-char rf12_easyPoll () {
+char 
+rf12_easyPoll() {
     if (rf12_recvDone() && rf12_crc == 0) {
         byte myAddr = nodeid & RF12_HDR_MASK;
         if (rf12_hdr == (RF12_HDR_CTL | RF12_HDR_DST | myAddr)) {
             ezPending = 0;
             ezNextSend[0] = 0; // flags succesful packet send
+
             if (rf12_len > 0)
                 return 1;
         }
     }
+
     if (ezPending > 0) {
         // new data sends should not happen less than ezInterval seconds apart
         // ... whereas retries should not happen less than RETRY_MS apart
         byte newData = ezPending == RETRIES;
         long now = millis();
+
         if (now >= ezNextSend[newData] && rf12_canSend()) {
             ezNextSend[0] = now + RETRY_MS;
             // must send new data packets at least ezInterval seconds apart
             // ezInterval == 0 is a special case:
             //      for the 868 MHz band: enforce 1% max bandwidth constraint
             //      for other bands: use 100 msec, i.e. max 10 packets/second
-            if (newData)
+            if (newData) {
                 ezNextSend[1] = now +
                     (ezInterval > 0 ? 1000L * ezInterval
-                                    : (nodeid >> 6) == RF12_868MHZ ?
-                                            13 * (ezSendLen + 10) : 100);
+                     : (nodeid >> 6) == RF12_868MHZ ?
+                     13 * (ezSendLen + 10) : 100);
+            }
             rf12_sendStart(RF12_HDR_ACK, ezSendBuf, ezSendLen);
             --ezPending;
         }
@@ -617,11 +629,13 @@ char rf12_easyPoll () {
     return ezPending ? -1 : 0;
 }
 
-char rf12_easySend (const void* data, uint8_t size) {
+char 
+rf12_easySend(const void* data, uint8_t size) {
     if (data != 0 && size != 0) {
         if (ezNextSend[0] == 0 && size == ezSendLen &&
-                                    memcmp(ezSendBuf, data, size) == 0)
+                memcmp(ezSendBuf, data, size) == 0) {
             return 0;
+        }
         memcpy(ezSendBuf, data, size);
         ezSendLen = size;
     }
@@ -633,12 +647,13 @@ char rf12_easySend (const void* data, uint8_t size) {
 
 #define DELTA 0x9E3779B9
 #define MX (((z>>5^y<<2) + (y>>3^z<<4)) ^ ((sum^y) + \
-                                            (cryptKey[(uint8_t)((p&3)^e)] ^ z)))
+            (cryptKey[(uint8_t)((p&3)^e)] ^ z)))
 
-static void cryptFun (uint8_t send) {
+static void 
+cryptFun(uint8_t send) {
     uint32_t y, z, sum, *v = (uint32_t*) rf12_data;
     uint8_t p, e, rounds = 6;
-    
+
     if (send) {
         // pad with 1..4-byte sequence number
         *(uint32_t*)(rf12_data + rf12_len) = ++seqNum;
@@ -685,12 +700,15 @@ static void cryptFun (uint8_t send) {
     }
 }
 
-void rf12_encrypt (const uint8_t* key) {
+void 
+rf12_encrypt(const uint8_t* key) {
     // by using a pointer to cryptFun, we only link it in when actually used
     if (key != 0) {
-        for (uint8_t i = 0; i < sizeof cryptKey; ++i)
+        for (uint8_t i = 0; i < sizeof cryptKey; ++i) {
             ((uint8_t*) cryptKey)[i] = eeprom_read_byte(key + i);
+        }
         crypter = cryptFun;
-    } else
+    } else {
         crypter = 0;
+    }
 }
