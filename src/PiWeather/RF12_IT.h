@@ -6,6 +6,7 @@
 #ifndef RF12_h
 #define RF12_h
 
+#include "PiWeather.h"
 #include <stdint.h>
 
 // version 1 did not include the group code in the crc
@@ -63,6 +64,7 @@ uint8_t rf12_config(uint8_t show =1);
 // call this frequently, returns true if a packet has been received
 uint8_t rf12_recvDone(void);
 
+#ifdef INCLUDE_RF12_SEND
 // call this to check whether a new transmission can be started
 // returns true when a new transmission may be started with rf12_sendStart()
 uint8_t rf12_canSend(void);
@@ -75,6 +77,7 @@ void rf12_sendStart(uint8_t hdr, const void* ptr, uint8_t len, uint8_t sync);
 
 // wait for send to finish, sleep mode: 0=none, 1=idle, 2=standby, 3=powerdown
 void rf12_sendWait(uint8_t mode);
+#endif 
 
 // this simulates OOK by turning the transmitter on and off via SPI commands
 // use this only when the radio was initialized with a fake zero node ID
@@ -93,11 +96,13 @@ void rf12_easyInit(uint8_t secs);
 // call this often to keep the easy transmission mode going
 char rf12_easyPoll(void);
 
+#ifdef INCLUDE_RF12_SEND
 // send new data using the easy transmission mode, buffer gets copied to driver
 char rf12_easySend(const void* data, uint8_t size);
 
 // enable encryption (null arg disables it again)
 void rf12_encrypt(const uint8_t*);
+#endif 
 
 // low-level control of the RFM12B via direct register access
 // http://tools.jeelabs.org/rfm12b is useful for calculating these

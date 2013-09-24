@@ -26,6 +26,16 @@
 #define SENSORS_RX_TIMEOUT 5
 
 
+// Define if you want to compile in sending support
+// #define INCLUDE_RF12_SEND  
+
+// Define if you want to compile in JeeNode protocol
+// #define INCLUDE_JEENODE    
+
+#if defined INCLUDE_JEENODE and not defined INCLUDE_RF12_SEND
+#error "INCLUDE_JEENODE requires INCLUDE_RF12_SEND support"
+#endif
+
 // Radio Sensor structure (both RF12 & IT+)
 typedef struct {
   char SensorID;

@@ -129,8 +129,10 @@ static volatile int8_t rxstate;     // current transceiver state
 #define RETRY_MS    1000            // resend packet every second until ack'ed
 
 static uint8_t ezInterval;          // number of seconds between transmits
+#ifdef INCLUDE_RF12_SEND
 static uint8_t ezSendBuf[RF12_MAXDATA]; // data to send
 static char ezSendLen;              // number of bytes to send
+#endif
 static uint8_t ezPending;           // remaining number of retries
 static long ezNextSend[2];          // when was last retry [0] or data [1] sent
 
@@ -138,9 +140,11 @@ volatile uint16_t rf12_crc;         // running crc value
 volatile uint8_t rf12_buf[RF_MAX];  // recv/xmit buf, including hdr & crc bytes
 long rf12_seq;                      // seq number of encrypted packet (or -1)
 
+#ifdef INCLUDE_RF12_SEND
 static uint32_t seqNum;             // encrypted send sequence number
 static uint32_t cryptKey[4];        // encryption key to use
 void (*crypter)(uint8_t);           // does en-/decryption (null if disabled)
+#endif
 
 boolean ITPlusFrame;
 
@@ -263,9 +267,10 @@ rf12_interrupt() {
                 ITPlusFrame = false;
         }
 
+#ifdef INCLUDE_JEENODE
         if (rxfill == 0 && group != 0 && !ITPlusFrame) /* GCR : added  && !ITPlusFrame */
             rf12_buf[rxfill++] = group;
-
+#endif
         rf12_buf[rxfill++] = in;
 
         if (ITPlusFrame) {
@@ -273,14 +278,19 @@ rf12_interrupt() {
                 rf12_xfer(RF_IDLE_MODE);
             }
             // CRC will be computed later
-        } else {
+        } 
+#ifdef INCLUDE_JEENODE
+        else {
             rf12_crc = _crc16_update(rf12_crc, in);
 
             if (rxfill >= rf12_len + 5 || rxfill >= RF_MAX) {
                 rf12_xfer(RF_IDLE_MODE);
             }
         } 
-    } else {
+#endif
+    } 
+#ifdef INCLUDE_JEENODE
+    else {
         uint8_t out;
 
         if (rxstate < 0) {
@@ -299,6 +309,7 @@ rf12_interrupt() {
 
         rf12_xfer(RF_TXREG_WRITE + out);
     }
+#endif
 }
 
 #if PINCHG_IRQ
@@ -340,7 +351,9 @@ rf12_recvDone() {
             rxstate = TXIDLE;
             return 1;	// Got full IT+ frame
         }
-    } else {	// RFM12/Jeenode normal processing
+    } 
+#ifdef INCLUDE_JEENODE 
+    else {	// RFM12/Jeenode normal processing
         if (rxstate == TXRECV && (rxfill >= rf12_len + 5 || rxfill >= RF_MAX)) {
             rxstate = TXIDLE;
             if (rf12_len > RF12_MAXDATA) {
@@ -358,13 +371,14 @@ rf12_recvDone() {
             }
         }
     }
-
+#endif
     if (rxstate == TXIDLE) {
         rf12_recvStart();
     }
     return 0;
 }
 
+#ifdef INCLUDE_RF12_SEND
 uint8_t 
 rf12_canSend() {
     // no need to test with interrupts disabled: state TXRECV is only reached
@@ -429,6 +443,7 @@ rf12_sendWait(uint8_t mode) {
         }
     }
 }
+#endif // INCLUDE_RF12_SEND
 
 /*!
   Call this once with the node ID (0-31), frequency band (0-3), and
@@ -452,7 +467,7 @@ rf12_initialize(uint8_t id, uint8_t band, uint8_t g) {
     }
 
     rf12_xfer(0x80C7 | (band << 4)); // EL (ena TX), EF (ena RX FIFO), 12.0pF 
-    rf12_xfer(0xA640); // 868MHz 
+    rf12_xfer(0xA640); // 868MHz XXX: HUH?  That doesn't seem right
     rf12_xfer(0xC606); // approx 49.2 Kbps, i.e. 10000/29/(1+6) Kbps
     rf12_xfer(0x94A2); // VDI,FAST,134kHz,0dBm,-91dBm 
     rf12_xfer(0xC2AC); // AL,!ml,DIG,DQD4 
@@ -600,7 +615,7 @@ rf12_easyPoll() {
                 return 1;
         }
     }
-
+#ifdef INCLUDE_RF12_SEND
     if (ezPending > 0) {
         // new data sends should not happen less than ezInterval seconds apart
         // ... whereas retries should not happen less than RETRY_MS apart
@@ -624,8 +639,10 @@ rf12_easyPoll() {
         }
     }
     return ezPending ? -1 : 0;
+#endif
 }
 
+#ifdef INCLUDE_RF12_SEND
 char 
 rf12_easySend(const void* data, uint8_t size) {
     if (data != 0 && size != 0) {
@@ -709,3 +726,4 @@ rf12_encrypt(const uint8_t* key) {
         crypter = 0;
     }
 }
+#endif // INCLUDE_RF12_SEND
