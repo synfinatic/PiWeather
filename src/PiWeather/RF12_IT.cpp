@@ -254,9 +254,6 @@ rf12_interrupt() {
     if (rxstate == TXRECV) {
         uint8_t in = rf12_xferSlow(RF_RX_FIFO_READ);
 
-        // See http://forum.jeelabs.net/comment/4434#comment-4434 
-        // For an explanation , and limitation of this modification , to read the La Crosse TX29+ 868Mhz Sensors
-
         // Check what type of frame it looks like with the first received byte
         // Is it a TX29+ Frame ? (Always starts with 0x9? , on group 0xD4)
         if (rxfill == 0 && group == 0xd4) {

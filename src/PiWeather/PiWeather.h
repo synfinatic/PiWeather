@@ -4,7 +4,8 @@
 #include "RF12_IT_ext.h"
 #include <Arduino.h>
 
-/* Only define 915 or 868 below depending on 
+/* 
+ * Only define 915 or 868 below depending on 
  * what version of hardware you have
  */
 #define USE_915Mhz
@@ -23,7 +24,6 @@
 #define ITPLUS_ID_MASK	0b00111111
 
 #define SENSORS_RX_TIMEOUT 5
-
 
 
 // Radio Sensor structure (both RF12 & IT+)

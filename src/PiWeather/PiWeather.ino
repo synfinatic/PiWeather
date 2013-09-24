@@ -37,6 +37,7 @@ void
 setup() {
     Serial.begin(57600);
     RF12Init();
+    ITPlusRXSetup();
 }
 
 /***********************************************
@@ -135,8 +136,6 @@ RF12Init() {
 
 void 
 CheckRF12Recv() {
-    byte Channel;
-
     if (rf12_recvDone()) {
         // If a "Receive Done" condition is signaled, we can safely use the RF12 library buffer up to the next call to
         // rf12_recvDone: RF12 tranceiver is held in idle state up to the next call.
