@@ -5,6 +5,9 @@
 void DebugPrint_P(const char *addr);
 void DebugPrintln_P(const char *addr);
 void printHex(byte data);
+void sprintf(char *fmt, ... );
+char *ftoa(char *a, double f, int precision);
+
 
 #endif
 
