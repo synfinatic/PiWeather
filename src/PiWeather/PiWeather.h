@@ -14,7 +14,7 @@
 #define DEBUG
 #define RF12_DEBUG  // General RF12 radio debug 
 #define RF12_FRAME_DEBUG // Debug RF12 frames 
-#define DEBUG_CRC
+// #define DEBUG_CRC
 
 #define ITPLUS_DEBUG 
 #define ITPLUS_DEBUG_FRAME

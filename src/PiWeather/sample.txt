@@ -1,0 +1,178 @@
+915Mhz radio init
+GotIT+
+98 15 55 7D 3A 
+byte 98 b=1  reg 01
+byte 98 b=0  reg 02
+byte 98 b=0  reg 04
+byte 98 b=1  reg 09
+byte 98 b=1  reg 13
+byte 98 b=0  reg 26
+byte 98 b=0  reg 4C
+byte 98 b=0  reg 98
+byte 15 b=0  Xoring 30 > 01 reg 01
+byte 15 b=0  reg 02
+byte 15 b=0  reg 04
+byte 15 b=1  reg 09
+byte 15 b=0  reg 12
+byte 15 b=1  reg 25
+byte 15 b=0  reg 4A
+byte 15 b=1  reg 95
+byte 55 b=0  Xoring 2A > 1B reg 1B
+byte 55 b=1  reg 37
+byte 55 b=0  reg 6E
+byte 55 b=1  reg DD
+byte 55 b=0  Xoring BA > 8B reg 8B
+byte 55 b=1  Xoring 17 > 26 reg 26
+byte 55 b=0  reg 4C
+byte 55 b=1  reg 99
+byte 7D b=0  Xoring 32 > 03 reg 03
+byte 7D b=1  reg 07
+byte 7D b=1  reg 0F
+byte 7D b=1  reg 1F
+byte 7D b=1  reg 3F
+byte 7D b=1  reg 7F
+byte 7D b=0  reg FE
+byte 7D b=1  Xoring FD > CC reg CC
+byte 3A b=0  Xoring 98 > A9 reg A9
+byte 3A b=0  Xoring 52 > 63 reg 63
+byte 3A b=1  reg C7
+byte 3A b=1  Xoring 8F > BE reg BE
+byte 3A b=1  Xoring 7D > 4C reg 4C
+byte 3A b=0  reg 98
+byte 3A b=1  Xoring 31 > 00 reg 00
+byte 3A b=0  reg 00
+Id: 20 - lcId: 80   Temp: 15.5 Hygro: 125%
+
+
+GotIT+
+98 15 58 6A AE 
+byte 98 b=1  reg 01
+byte 98 b=0  reg 02
+byte 98 b=0  reg 04
+byte 98 b=1  reg 09
+byte 98 b=1  reg 13
+byte 98 b=0  reg 26
+byte 98 b=0  reg 4C
+byte 98 b=0  reg 98
+byte 15 b=0  Xoring 30 > 01 reg 01
+byte 15 b=0  reg 02
+byte 15 b=0  reg 04
+byte 15 b=1  reg 09
+byte 15 b=0  reg 12
+byte 15 b=1  reg 25
+byte 15 b=0  reg 4A
+byte 15 b=1  reg 95
+byte 58 b=0  Xoring 2A > 1B reg 1B
+byte 58 b=1  reg 37
+byte 58 b=0  reg 6E
+byte 58 b=1  reg DD
+byte 58 b=1  Xoring BB > 8A reg 8A
+byte 58 b=0  Xoring 14 > 25 reg 25
+byte 58 b=0  reg 4A
+byte 58 b=0  reg 94
+byte 6A b=0  Xoring 28 > 19 reg 19
+byte 6A b=1  reg 33
+byte 6A b=1  reg 67
+byte 6A b=0  reg CE
+byte 6A b=1  Xoring 9D > AC reg AC
+byte 6A b=0  Xoring 58 > 69 reg 69
+byte 6A b=1  reg D3
+byte 6A b=0  Xoring A6 > 97 reg 97
+byte AE b=1  Xoring 2F > 1E reg 1E
+byte AE b=0  reg 3C
+byte AE b=1  reg 79
+byte AE b=0  reg F2
+byte AE b=1  Xoring E5 > D4 reg D4
+byte AE b=1  Xoring A9 > 98 reg 98
+byte AE b=1  Xoring 31 > 00 reg 00
+byte AE b=0  reg 00
+Id: 20 - lcId: 80   Temp: 15.8
+
+GotIT+
+98 15 57 7D E3 
+byte 98 b=1  reg 01
+byte 98 b=0  reg 02
+byte 98 b=0  reg 04
+byte 98 b=1  reg 09
+byte 98 b=1  reg 13
+byte 98 b=0  reg 26
+byte 98 b=0  reg 4C
+byte 98 b=0  reg 98
+byte 15 b=0  Xoring 30 > 01 reg 01
+byte 15 b=0  reg 02
+byte 15 b=0  reg 04
+byte 15 b=1  reg 09
+byte 15 b=0  reg 12
+byte 15 b=1  reg 25
+byte 15 b=0  reg 4A
+byte 15 b=1  reg 95
+byte 57 b=0  Xoring 2A > 1B reg 1B
+byte 57 b=1  reg 37
+byte 57 b=0  reg 6E
+byte 57 b=1  reg DD
+byte 57 b=0  Xoring BA > 8B reg 8B
+byte 57 b=1  Xoring 17 > 26 reg 26
+byte 57 b=1  reg 4D
+byte 57 b=1  reg 9B
+byte 7D b=0  Xoring 36 > 07 reg 07
+byte 7D b=1  reg 0F
+byte 7D b=1  reg 1F
+byte 7D b=1  reg 3F
+byte 7D b=1  reg 7F
+byte 7D b=1  reg FF
+byte 7D b=0  Xoring FE > CF reg CF
+byte 7D b=1  Xoring 9F > AE reg AE
+byte E3 b=1  Xoring 5D > 6C reg 6C
+byte E3 b=1  reg D9
+byte E3 b=1  Xoring B3 > 82 reg 82
+byte E3 b=0  Xoring 04 > 35 reg 35
+byte E3 b=0  reg 6A
+byte E3 b=0  reg D4
+byte E3 b=1  Xoring A9 > 98 reg 98
+byte E3 b=1  Xoring 31 > 00 reg 00
+Id: 20 - lcId: 80   Temp: 15.7 Hygro: 125%
+
+GotIT+
+98 15 58 6A AE 
+byte 98 b=1  reg 01
+byte 98 b=0  reg 02
+byte 98 b=0  reg 04
+byte 98 b=1  reg 09
+byte 98 b=1  reg 13
+byte 98 b=0  reg 26
+byte 98 b=0  reg 4C
+byte 98 b=0  reg 98
+byte 15 b=0  Xoring 30 > 01 reg 01
+byte 15 b=0  reg 02
+byte 15 b=0  reg 04
+byte 15 b=1  reg 09
+byte 15 b=0  reg 12
+byte 15 b=1  reg 25
+byte 15 b=0  reg 4A
+byte 15 b=1  reg 95
+byte 58 b=0  Xoring 2A > 1B reg 1B
+byte 58 b=1  reg 37
+byte 58 b=0  reg 6E
+byte 58 b=1  reg DD
+byte 58 b=1  Xoring BB > 8A reg 8A
+byte 58 b=0  Xoring 14 > 25 reg 25
+byte 58 b=0  reg 4A
+byte 58 b=0  reg 94
+byte 6A b=0  Xoring 28 > 19 reg 19
+byte 6A b=1  reg 33
+byte 6A b=1  reg 67
+byte 6A b=0  reg CE
+byte 6A b=1  Xoring 9D > AC reg AC
+byte 6A b=0  Xoring 58 > 69 reg 69
+byte 6A b=1  reg D3
+byte 6A b=0  Xoring A6 > 97 reg 97
+byte AE b=1  Xoring 2F > 1E reg 1E
+byte AE b=0  reg 3C
+byte AE b=1  reg 79
+byte AE b=0  reg F2
+byte AE b=1  Xoring E5 > D4 reg D4
+byte AE b=1  Xoring A9 > 98 reg 98
+byte AE b=1  Xoring 31 > 00 reg 00
+byte AE b=0  reg 00
+Id: 20 - lcId: 80   Temp: 15.8
+

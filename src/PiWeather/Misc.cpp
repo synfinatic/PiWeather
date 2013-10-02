@@ -33,7 +33,7 @@ printHex(byte data) {
 }
 
 void 
-sprintf(char *fmt, ... ) {
+serial_printf(char *fmt, ... ) {
     char tmp[MAX_SPRINTF]; // resulting string limited to XXX chars
     va_list args;
     va_start (args, fmt );

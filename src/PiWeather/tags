@@ -1,0 +1,161 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+CRC_POLY	ITPlusRX.cpp	/^#define CRC_POLY /;"	d	file:
+CheckITPlusCRC	ITPlusRX.cpp	/^CheckITPlusCRC(byte *msge, byte nbBytes) {$/;"	f
+CheckITPlusRegistration	ITPlusRX.cpp	/^CheckITPlusRegistration(byte id, byte Temp, byte DeciTemp) {$/;"	f
+DEBUG	PiWeather.h	/^#define DEBUG$/;"	d
+DEBUG_CRC	PiWeather.h	/^#define DEBUG_CRC$/;"	d
+DELTA	RF12_IT.cpp	/^#define DELTA /;"	d	file:
+DebugPrint_P	Misc.cpp	/^DebugPrint_P(const char *addr) {$/;"	f
+DebugPrintln_P	Misc.cpp	/^DebugPrintln_P(const char *addr) {$/;"	f
+DeciTemp	PiWeather.h	/^  char Temp, DeciTemp;$/;"	m	struct:__anon1
+DeciTemp	PiWeather.h	/^  char Temp, DeciTemp;$/;"	m	struct:__anon2
+DiscoveredITPlus	ITPlusRX.cpp	/^Type_Discovered DiscoveredITPlus[ITPLUS_MAX_DISCOVER];$/;"	v
+ISR	RF12_IT.cpp	/^ISR(PCINT0_vect) { $/;"	f
+ISR	RF12_IT.cpp	/^ISR(PCINT1_vect) {$/;"	f
+ISR	RF12_IT.cpp	/^ISR(PCINT2_vect) {$/;"	f
+ITPLUSRX_EXT_H	ITPlusRX_ext.h	/^#define ITPLUSRX_EXT_H$/;"	d
+ITPLUS_DEBUG	PiWeather.h	/^#define ITPLUS_DEBUG /;"	d
+ITPLUS_DEBUG_FRAME	PiWeather.h	/^#define ITPLUS_DEBUG_FRAME$/;"	d
+ITPLUS_DISCOVERY_PERIOD	PiWeather.h	/^#define ITPLUS_DISCOVERY_PERIOD /;"	d
+ITPLUS_ID_MASK	PiWeather.h	/^#define ITPLUS_ID_MASK	/;"	d
+ITPLUS_MAX_DISCOVER	PiWeather.h	/^#define ITPLUS_MAX_DISCOVER /;"	d
+ITPLUS_MAX_SENSORS	PiWeather.h	/^#define ITPLUS_MAX_SENSORS /;"	d
+ITPlusChannels	ITPlusRX.cpp	/^Type_Channel ITPlusChannels[ITPLUS_MAX_SENSORS];$/;"	v
+ITPlusFrame	RF12_IT.cpp	/^boolean ITPlusFrame;$/;"	v
+ITPlusRXSetup	ITPlusRX.cpp	/^ITPlusRXSetup() {$/;"	f
+ITPlusRX_H	ITPlusRX.h	/^#define ITPlusRX_H /;"	d
+LastReceiveTimer	PiWeather.h	/^  char LastReceiveTimer;$/;"	m	struct:__anon1
+LastReceiveTimer	PiWeather.h	/^  char LastReceiveTimer;$/;"	m	struct:__anon2
+MAX_SPRINTF	Misc.cpp	/^#define MAX_SPRINTF /;"	d	file:
+MX	RF12_IT.cpp	/^#define MX /;"	d	file:
+Misc_h	Misc.h	/^#define Misc_h$/;"	d
+NODE_ACKANY	RF12_IT.cpp	/^#define NODE_ACKANY /;"	d	file:
+NODE_BAND	RF12_IT.cpp	/^#define NODE_BAND /;"	d	file:
+NODE_ID	RF12_IT.cpp	/^#define NODE_ID /;"	d	file:
+PiWeather_H	PiWeather.h	/^#define PiWeather_H /;"	d
+ProcessITPlusFrame	ITPlusRX.cpp	/^ProcessITPlusFrame() {$/;"	f
+RETRIES	RF12_IT.cpp	/^#define RETRIES /;"	d	file:
+RETRY_MS	RF12_IT.cpp	/^#define RETRY_MS /;"	d	file:
+RF12_433MHZ	RF12_IT.h	/^#define RF12_433MHZ /;"	d
+RF12_868MHZ	RF12_IT.h	/^#define RF12_868MHZ /;"	d
+RF12_915MHZ	RF12_IT.h	/^#define RF12_915MHZ /;"	d
+RF12_ACK_REPLY	RF12_IT.h	/^#define RF12_ACK_REPLY /;"	d
+RF12_DATA_RATE_1	RF12_IT.h	/^    RF12_DATA_RATE_1 = RF12_DATA_RATE_CMD | 0x9E,  \/\/ Approx   1200 bps$/;"	e	enum:rf12DataRates
+RF12_DATA_RATE_2	RF12_IT.h	/^    RF12_DATA_RATE_2 = RF12_DATA_RATE_CMD | 0x91,  \/\/ Approx   2400 bps$/;"	e	enum:rf12DataRates
+RF12_DATA_RATE_3	RF12_IT.h	/^    RF12_DATA_RATE_3 = RF12_DATA_RATE_CMD | 0x47,  \/\/ Approx   4800 bps$/;"	e	enum:rf12DataRates
+RF12_DATA_RATE_4	RF12_IT.h	/^    RF12_DATA_RATE_4 = RF12_DATA_RATE_CMD | 0x23,  \/\/ Approx   9600 bps$/;"	e	enum:rf12DataRates
+RF12_DATA_RATE_5	RF12_IT.h	/^    RF12_DATA_RATE_5 = RF12_DATA_RATE_CMD | 0x11,  \/\/ Approx  19200 bps$/;"	e	enum:rf12DataRates
+RF12_DATA_RATE_6	RF12_IT.h	/^    RF12_DATA_RATE_6 = RF12_DATA_RATE_CMD | 0x08,  \/\/ Approx  38400 bps$/;"	e	enum:rf12DataRates
+RF12_DATA_RATE_7	RF12_IT.h	/^    RF12_DATA_RATE_7 = RF12_DATA_RATE_CMD | 0x06,  \/\/ Approx  49200 bps$/;"	e	enum:rf12DataRates
+RF12_DATA_RATE_8	RF12_IT.h	/^    RF12_DATA_RATE_8 = RF12_DATA_RATE_CMD | 0x05,  \/\/ Approx  57600 bps$/;"	e	enum:rf12DataRates
+RF12_DATA_RATE_9	RF12_IT.h	/^    RF12_DATA_RATE_9 = RF12_DATA_RATE_CMD | 0x02,  \/\/ Approx 115200 bps$/;"	e	enum:rf12DataRates
+RF12_DATA_RATE_CMD	RF12_IT.h	/^    RF12_DATA_RATE_CMD = 0xC600,$/;"	e	enum:rf12DataRates
+RF12_DATA_RATE_DEFAULT	RF12_IT.h	/^    RF12_DATA_RATE_DEFAULT = RF12_DATA_RATE_7,$/;"	e	enum:rf12DataRates
+RF12_DEBUG	PiWeather.h	/^#define RF12_DEBUG /;"	d
+RF12_EEPROM_ADDR	RF12_IT.h	/^#define RF12_EEPROM_ADDR /;"	d
+RF12_EEPROM_EKEY	RF12_IT.h	/^#define RF12_EEPROM_EKEY /;"	d
+RF12_EEPROM_ELEN	RF12_IT.h	/^#define RF12_EEPROM_ELEN /;"	d
+RF12_EEPROM_SIZE	RF12_IT.h	/^#define RF12_EEPROM_SIZE /;"	d
+RF12_FRAME_DEBUG	PiWeather.h	/^#define RF12_FRAME_DEBUG /;"	d
+RF12_HDR_ACK	RF12_IT.h	/^#define RF12_HDR_ACK /;"	d
+RF12_HDR_CTL	RF12_IT.h	/^#define RF12_HDR_CTL /;"	d
+RF12_HDR_DST	RF12_IT.h	/^#define RF12_HDR_DST /;"	d
+RF12_HDR_MASK	RF12_IT.h	/^#define RF12_HDR_MASK /;"	d
+RF12_IT_EXT_H	RF12_IT_ext.h	/^#define RF12_IT_EXT_H$/;"	d
+RF12_MAXDATA	RF12_IT.h	/^#define RF12_MAXDATA /;"	d
+RF12_SLEEP	RF12_IT.h	/^#define RF12_SLEEP /;"	d
+RF12_VERSION	RF12_IT.h	/^#define RF12_VERSION /;"	d
+RF12_WAKEUP	RF12_IT.h	/^#define RF12_WAKEUP /;"	d
+RF12_WANTS_ACK	RF12_IT.h	/^#define RF12_WANTS_ACK /;"	d
+RF12_h	RF12_IT.h	/^#define RF12_h$/;"	d
+RFM_IRQ	RF12_IT.cpp	/^#define RFM_IRQ /;"	d	file:
+RF_IDLE_MODE	RF12_IT.cpp	/^#define RF_IDLE_MODE /;"	d	file:
+RF_LBD_BIT	RF12_IT.cpp	/^#define RF_LBD_BIT /;"	d	file:
+RF_MAX	RF12_IT.cpp	/^#define RF_MAX /;"	d	file:
+RF_RECEIVER_ON	RF12_IT.cpp	/^#define RF_RECEIVER_ON /;"	d	file:
+RF_RSSI_BIT	RF12_IT.cpp	/^#define RF_RSSI_BIT /;"	d	file:
+RF_RX_FIFO_READ	RF12_IT.cpp	/^#define RF_RX_FIFO_READ /;"	d	file:
+RF_SLEEP_MODE	RF12_IT.cpp	/^#define RF_SLEEP_MODE /;"	d	file:
+RF_TXREG_WRITE	RF12_IT.cpp	/^#define RF_TXREG_WRITE /;"	d	file:
+RF_WAKEUP_MODE	RF12_IT.cpp	/^#define RF_WAKEUP_MODE /;"	d	file:
+RF_WAKEUP_TIMER	RF12_IT.cpp	/^#define RF_WAKEUP_TIMER /;"	d	file:
+RF_XMITTER_ON	RF12_IT.cpp	/^#define RF_XMITTER_ON /;"	d	file:
+SENSORS_RX_TIMEOUT	PiWeather.h	/^#define SENSORS_RX_TIMEOUT /;"	d
+SPI_MISO	RF12_IT.cpp	/^#define SPI_MISO /;"	d	file:
+SPI_MOSI	RF12_IT.cpp	/^#define SPI_MOSI /;"	d	file:
+SPI_SCK	RF12_IT.cpp	/^#define SPI_SCK /;"	d	file:
+SPI_SS	RF12_IT.cpp	/^#define SPI_SS /;"	d	file:
+SS_BIT	RF12_IT.cpp	/^#define SS_BIT /;"	d	file:
+SS_DDR	RF12_IT.cpp	/^#define SS_DDR /;"	d	file:
+SS_PORT	RF12_IT.cpp	/^#define SS_PORT /;"	d	file:
+SensorID	PiWeather.h	/^  char SensorID;$/;"	m	struct:__anon1
+SensorID	PiWeather.h	/^  char SensorID;$/;"	m	struct:__anon2
+TXCRC1	RF12_IT.cpp	/^    TXCRC1, TXCRC2, TXTAIL, TXDONE, TXIDLE,$/;"	e	enum:__anon3	file:
+TXCRC2	RF12_IT.cpp	/^    TXCRC1, TXCRC2, TXTAIL, TXDONE, TXIDLE,$/;"	e	enum:__anon3	file:
+TXDONE	RF12_IT.cpp	/^    TXCRC1, TXCRC2, TXTAIL, TXDONE, TXIDLE,$/;"	e	enum:__anon3	file:
+TXIDLE	RF12_IT.cpp	/^    TXCRC1, TXCRC2, TXTAIL, TXDONE, TXIDLE,$/;"	e	enum:__anon3	file:
+TXPRE1	RF12_IT.cpp	/^    TXPRE1, TXPRE2, TXPRE3, TXSYN1, TXSYN2,$/;"	e	enum:__anon3	file:
+TXPRE2	RF12_IT.cpp	/^    TXPRE1, TXPRE2, TXPRE3, TXSYN1, TXSYN2,$/;"	e	enum:__anon3	file:
+TXPRE3	RF12_IT.cpp	/^    TXPRE1, TXPRE2, TXPRE3, TXSYN1, TXSYN2,$/;"	e	enum:__anon3	file:
+TXRECV	RF12_IT.cpp	/^    TXRECV,$/;"	e	enum:__anon3	file:
+TXSYN1	RF12_IT.cpp	/^    TXPRE1, TXPRE2, TXPRE3, TXSYN1, TXSYN2,$/;"	e	enum:__anon3	file:
+TXSYN2	RF12_IT.cpp	/^    TXPRE1, TXPRE2, TXPRE3, TXSYN1, TXSYN2,$/;"	e	enum:__anon3	file:
+TXTAIL	RF12_IT.cpp	/^    TXCRC1, TXCRC2, TXTAIL, TXDONE, TXIDLE,$/;"	e	enum:__anon3	file:
+Temp	PiWeather.h	/^  char Temp, DeciTemp;$/;"	m	struct:__anon1
+Temp	PiWeather.h	/^  char Temp, DeciTemp;$/;"	m	struct:__anon2
+Type_Channel	PiWeather.h	/^} Type_Channel;$/;"	t	typeref:struct:__anon1
+Type_Discovered	PiWeather.h	/^} Type_Discovered;$/;"	t	typeref:struct:__anon2
+USE_915Mhz	PiWeather.h	/^#define USE_915Mhz$/;"	d
+cryptFun	RF12_IT.cpp	/^cryptFun(uint8_t send) {$/;"	f	file:
+cryptKey	RF12_IT.cpp	/^static uint32_t cryptKey[4];        \/\/ encryption key to use$/;"	v	file:
+crypter	RF12_IT.cpp	/^void (*crypter)(uint8_t);           \/\/ does en-\/decryption (null if disabled)$/;"	v
+ezInterval	RF12_IT.cpp	/^static uint8_t ezInterval;          \/\/ number of seconds between transmits$/;"	v	file:
+ezNextSend	RF12_IT.cpp	/^static long ezNextSend[2];          \/\/ when was last retry [0] or data [1] sent$/;"	v	file:
+ezPending	RF12_IT.cpp	/^static uint8_t ezPending;           \/\/ remaining number of retries$/;"	v	file:
+ezSendBuf	RF12_IT.cpp	/^static uint8_t ezSendBuf[RF12_MAXDATA]; \/\/ data to send$/;"	v	file:
+ezSendLen	RF12_IT.cpp	/^static char ezSendLen;              \/\/ number of bytes to send$/;"	v	file:
+ftoa	Misc.cpp	/^*ftoa(char *a, double f, int precision)$/;"	f
+group	RF12_IT.cpp	/^static uint8_t group;               \/\/ network group$/;"	v	file:
+nodeid	RF12_IT.cpp	/^static uint8_t nodeid;              \/\/ address of this node$/;"	v	file:
+printHex	Misc.cpp	/^printHex(byte data) {$/;"	f
+rf12DataRates	RF12_IT.h	/^enum rf12DataRates {$/;"	g
+rf12_buf	RF12_IT.cpp	/^volatile uint8_t rf12_buf[RF_MAX];  \/\/ recv\/xmit buf, including hdr & crc bytes$/;"	v
+rf12_byte	RF12_IT.cpp	/^rf12_byte(uint8_t out) {$/;"	f	file:
+rf12_canSend	RF12_IT.cpp	/^rf12_canSend() {$/;"	f
+rf12_config	RF12_IT.cpp	/^rf12_config(uint8_t show) {$/;"	f
+rf12_control	RF12_IT.cpp	/^rf12_control(uint16_t cmd) {$/;"	f
+rf12_crc	RF12_IT.cpp	/^volatile uint16_t rf12_crc;         \/\/ running crc value$/;"	v
+rf12_data	RF12_IT.h	/^#define rf12_data /;"	d
+rf12_easyInit	RF12_IT.cpp	/^rf12_easyInit(uint8_t secs) {$/;"	f
+rf12_easyPoll	RF12_IT.cpp	/^rf12_easyPoll() {$/;"	f
+rf12_easySend	RF12_IT.cpp	/^rf12_easySend(const void* data, uint8_t size) {$/;"	f
+rf12_encrypt	RF12_IT.cpp	/^rf12_encrypt(const uint8_t* key) {$/;"	f
+rf12_grp	RF12_IT.h	/^#define rf12_grp /;"	d
+rf12_hdr	RF12_IT.h	/^#define rf12_hdr /;"	d
+rf12_initialize	RF12_IT.cpp	/^rf12_initialize(uint8_t id, uint8_t band, uint8_t g) {$/;"	f
+rf12_initialize_overide_ITP	RF12_IT.cpp	/^rf12_initialize_overide_ITP(uint16_t speed) {$/;"	f
+rf12_interrupt	RF12_IT.cpp	/^rf12_interrupt() {$/;"	f	file:
+rf12_len	RF12_IT.h	/^#define rf12_len /;"	d
+rf12_lowbat	RF12_IT.cpp	/^rf12_lowbat() {$/;"	f
+rf12_onOff	RF12_IT.cpp	/^rf12_onOff(uint8_t value) {$/;"	f
+rf12_recvDone	RF12_IT.cpp	/^rf12_recvDone() {$/;"	f
+rf12_recvStart	RF12_IT.cpp	/^rf12_recvStart() {$/;"	f	file:
+rf12_sendStart	RF12_IT.cpp	/^rf12_sendStart(uint8_t hdr) {$/;"	f
+rf12_sendStart	RF12_IT.cpp	/^rf12_sendStart(uint8_t hdr, const void* ptr, uint8_t len) {$/;"	f
+rf12_sendStart	RF12_IT.cpp	/^rf12_sendStart(uint8_t hdr, const void* ptr, uint8_t len, uint8_t sync) {$/;"	f
+rf12_sendWait	RF12_IT.cpp	/^rf12_sendWait(uint8_t mode) {$/;"	f
+rf12_seq	RF12_IT.cpp	/^long rf12_seq;                      \/\/ seq number of encrypted packet (or -1)$/;"	v
+rf12_sleep	RF12_IT.cpp	/^rf12_sleep(char n) {$/;"	f
+rf12_spiInit	RF12_IT.cpp	/^rf12_spiInit() {$/;"	f
+rf12_xfer	RF12_IT.cpp	/^#define rf12_xfer /;"	d	file:
+rf12_xfer	RF12_IT.cpp	/^rf12_xfer(uint16_t cmd) {$/;"	f	file:
+rf12_xferSlow	RF12_IT.cpp	/^rf12_xferSlow(uint16_t cmd) {$/;"	f	file:
+rxfill	RF12_IT.cpp	/^static volatile uint8_t rxfill;     \/\/ number of data bytes in rf12_buf$/;"	v	file:
+rxstate	RF12_IT.cpp	/^static volatile int8_t rxstate;     \/\/ current transceiver state$/;"	v	file:
+seqNum	RF12_IT.cpp	/^static uint32_t seqNum;             \/\/ encrypted send sequence number$/;"	v	file:
+sprintf	Misc.cpp	/^sprintf(char *fmt, ... ) {$/;"	f

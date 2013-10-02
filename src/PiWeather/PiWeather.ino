@@ -84,6 +84,7 @@ loop() {
             // Remove last CR/LF
             *(PtData - 2) = 0;
         }
+
         //  CheckProcessBrowserRequest();
         CheckRF12Recv();
 
@@ -140,9 +141,9 @@ CheckRF12Recv() {
         // If a "Receive Done" condition is signaled, we can safely use the RF12 library buffer up to the next call to
         // rf12_recvDone: RF12 tranceiver is held in idle state up to the next call.
         // Is it IT+ or Jeenode frame ?
-        if (ITPlusFrame)
+        if (ITPlusFrame) {
             ProcessITPlusFrame();  // Keep IT+ logic outside this source files
-        else {
+        } else {
             if (rf12_crc == 0) {  // Valid RF12 Jeenode frame received
 #ifdef RF12_DEBUG
                 DebugPrint_P(PSTR("RF12 rcv: "));
