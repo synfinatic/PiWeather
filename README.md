@@ -44,7 +44,7 @@ provide the necessary wireless interface to talk to the weather sensors.
 
 Right now my goal is to support La Cross Technology IT+ (868/915Mhz) temperature 
 & humidity sensors.  Then I hope to add support for wind and rain sensors as 
-well.  Other vendor and wireless technologies (433Mhz).
+well as other vendors and wireless technologies (433Mhz).
 
 ## Credits ##
  
